@@ -43,16 +43,15 @@ jsTag.directive('focusMe', ['$parse', '$timeout', function($parse, $timeout) {
       var model = $parse(attrs.focusMe);
       scope.$watch(model, function(value) {
         if (value === true) {
-          $timeout(function() {
-            element[0].focus();
-          });
+		  element[0].focus();
         }
       });
 
       // to address @blesh's comment, set attribute value to 'false'
       // on blur event:
       element.bind('blur', function() {
-        scope.$apply(model.assign(scope, false));
+		if(model.assign !== undefined)
+		  model.assign(scope, false);
       });
     }
   };
@@ -60,16 +59,14 @@ jsTag.directive('focusMe', ['$parse', '$timeout', function($parse, $timeout) {
 
 // focusOnce is used to focus an element once when first appearing
 // Not like focusMe that binds to an input boolean and keeps focusing by it
-jsTag.directive('focusOnce', ['$timeout', function($timeout) {
+jsTag.directive('focusOnce', function() {
   return {
     restrict: 'A',
     link: function(scope, element, attrs) {
-      $timeout(function() {
-        element[0].select();
-      });
+      element[0].select();
     }
   };
-}]);
+});
 
 // auto-grow directive by the "shadow" tag concept
 jsTag.directive('autoGrow', ['$timeout', function($timeout) {
