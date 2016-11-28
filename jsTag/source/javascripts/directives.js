@@ -13,26 +13,6 @@ jsTag.directive('jsTag', ['$templateCache', function($templateCache) {
   };
 }]);
 
-// TODO: Replace this custom directive by a supported angular-js directive for blur
-jsTag.directive('ngBlur', ['$parse', function($parse) {
-    return {
-        restrict: 'A',
-        link: function(scope, elem, attrs) {
-          // this next line will convert the string
-          // function name into an actual function
-          var functionToCall = $parse(attrs.ngBlur);
-          elem.bind('blur', function(event) {
-
-            // on the blur event, call my function
-            scope.$apply(function() {
-              functionToCall(scope, {$event:event});
-            });
-          });
-        }
-    };
-}]);
-
-
 // Notice that focus me also sets the value to false when blur is called
 // TODO: Replace this custom directive by a supported angular-js directive for focus
 // http://stackoverflow.com/questions/14833326/how-to-set-focus-in-angularjs

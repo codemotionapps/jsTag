@@ -2,7 +2,7 @@
 * jsTag JavaScript Library - Editing tags based on angularJS 
 * Git: https://github.com/eranhirs/jsTag/tree/master
 * License: MIT (http://www.opensource.org/licenses/mit-license.php)
-* Compiled At: 11/17/2016 15:36
+* Compiled At: 11/28/2016 23:36
 **************************************************/
 'use strict';
 var jsTag = angular.module('jsTag', []);
@@ -596,26 +596,6 @@ jsTag.directive('jsTag', ['$templateCache', function($templateCache) {
     }
   };
 }]);
-
-// TODO: Replace this custom directive by a supported angular-js directive for blur
-jsTag.directive('ngBlur', ['$parse', function($parse) {
-    return {
-        restrict: 'A',
-        link: function(scope, elem, attrs) {
-          // this next line will convert the string
-          // function name into an actual function
-          var functionToCall = $parse(attrs.ngBlur);
-          elem.bind('blur', function(event) {
-
-            // on the blur event, call my function
-            scope.$apply(function() {
-              functionToCall(scope, {$event:event});
-            });
-          });
-        }
-    };
-}]);
-
 
 // Notice that focus me also sets the value to false when blur is called
 // TODO: Replace this custom directive by a supported angular-js directive for focus
